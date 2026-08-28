@@ -1,650 +1,358 @@
-/* =========================================
-   DISHRA BIRTHDAY WEBSITE
-   COMPLETE CSS
-   ========================================= */
+// ===============================
+// DISHRA BIRTHDAY WEBSITE
+// Interactive Script
+// ===============================
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-html {
-  scroll-behavior: smooth;
-}
+  // -------------------------------
+  // PAGE NAVIGATION
+  // -------------------------------
 
-body {
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255, 105, 180, 0.10), transparent 30%),
-    radial-gradient(circle at 80% 80%, rgba(180, 80, 160, 0.12), transparent 30%),
-    linear-gradient(145deg, #100914, #1c0d1d 45%, #100812);
-  color: #fff4fb;
-  font-family: Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
-}
+  const pages = document.querySelectorAll(".page");
+  const nextButtons = document.querySelectorAll("[data-next]");
 
-/* =========================================
-   HEART BACKGROUND
-   ========================================= */
+  let currentPage = 1;
 
-#hearts {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 9999;
-}
+  function showPage(pageNumber) {
+    pages.forEach(page => {
+      page.classList.remove("active");
+    });
 
-.floating-heart {
-  position: fixed;
-  bottom: -40px;
-  pointer-events: none;
-  user-select: none;
-  line-height: 1;
-  opacity: 0;
-
-  /* POP + FLOAT */
-  animation: popFloatHeart 4s ease-out forwards;
-
-  will-change: transform, opacity;
-}
-
-@keyframes popFloatHeart {
-
-  /* Starting point */
-  0% {
-    transform:
-      translateY(0)
-      scale(0.1)
-      rotate(-15deg);
-    opacity: 0;
-  }
-
-  /* ❤️ POP */
-  8% {
-    transform:
-      translateY(-15px)
-      scale(1.35)
-      rotate(8deg);
-    opacity: 1;
-  }
-
-  /* Slight bounce */
-  16% {
-    transform:
-      translateY(-30px)
-      scale(0.95)
-      rotate(-5deg);
-    opacity: 0.95;
-  }
-
-  /* Float upward */
-  35% {
-    transform:
-      translateY(-30vh)
-      scale(1)
-      rotate(8deg);
-    opacity: 0.85;
-  }
-
-  60% {
-    transform:
-      translateY(-60vh)
-      scale(1.1)
-      rotate(-8deg);
-    opacity: 0.65;
-  }
-
-  85% {
-    transform:
-      translateY(-90vh)
-      scale(1.2)
-      rotate(12deg);
-    opacity: 0.35;
-  }
-
-  /* Disappear */
-  100% {
-    transform:
-      translateY(-115vh)
-      scale(1.3)
-      rotate(20deg);
-    opacity: 0;
-  }
-}
-/* =========================================
-   NOISE
-   ========================================= */
-
-.noise {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 5;
-  opacity: 0.035;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(255,255,255,0.15) 3px
+    const targetPage = document.querySelector(
+      `.page[data-page="${pageNumber}"]`
     );
-}
 
-/* =========================================
-   MAIN
-   ========================================= */
+    if (targetPage) {
+      targetPage.classList.add("active");
+      currentPage = pageNumber;
 
-#app {
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
-  z-index: 10;
-}
-
-/* =========================================
-   PAGES
-   ========================================= */
-
-.page {
-  display: none;
-  width: 100%;
-  min-height: 100vh;
-  padding: 55px 24px 90px;
-  position: relative;
-  overflow: hidden;
-}
-
-.page.active {
-  display: block;
-  animation: pageIn 0.7s ease both;
-}
-
-@keyframes pageIn {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+  nextButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const nextPage = Number(button.dataset.next);
 
-/* =========================================
-   GENERAL CONTENT
-   ========================================= */
+      if (nextPage) {
+        showPage(nextPage);
+      }
+    });
+  });
 
-.page-inner,
-.hero-content {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-}
 
-.chapter {
-  color: #f18abb;
-  font-size: 14px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 35px;
-  font-weight: 600;
-}
+  // -------------------------------
+  // YES / NO QUESTION
+  // -------------------------------
 
-h1,
-h2,
-h3 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: 400;
-  color: #fff3fb;
-}
+  const yesButton = document.querySelector("#yesBtn");
+  const noButton = document.querySelector("#noBtn");
+  const answerMessage = document.querySelector("#answerMessage");
 
-h1 {
-  font-size: clamp(48px, 12vw, 100px);
-  line-height: 0.95;
-}
+  if (yesButton) {
+    yesButton.addEventListener("click", () => {
 
-h2 {
-  font-size: clamp(38px, 9vw, 75px);
-  line-height: 1.05;
-}
+      if (answerMessage) {
+        answerMessage.innerHTML =
+          "I knew it. 🥹❤️<br>Then let's make a lifetime of memories together. ✨";
+        answerMessage.style.display = "block";
+      }
 
-h3 {
-  font-size: 30px;
-}
+      createHearts(25);
 
-p {
-  line-height: 1.7;
-}
+      yesButton.innerHTML = "YES ❤️";
+      yesButton.disabled = true;
 
-.hero-copy,
-.page-copy {
-  color: #e1cbdc;
-  font-size: 19px;
-  margin-top: 25px;
-}
-
-/* =========================================
-   HERO
-   ========================================= */
-
-.hero-orbit {
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border: 1px solid rgba(255, 130, 190, 0.18);
-  border-radius: 50%;
-  top: 8%;
-  right: -180px;
-  animation: orbit 12s linear infinite;
-}
-
-@keyframes orbit {
-  from {
-    transform: rotate(0deg);
+      if (noButton) {
+        noButton.style.display = "none";
+      }
+    });
   }
 
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-.hero-content {
-  position: relative;
-  z-index: 2;
-  padding-top: 70px;
-}
+  if (noButton) {
 
-.eyebrow {
-  color: #f19ac5;
-  font-size: 14px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
+    noButton.addEventListener("click", () => {
 
-.names {
-  margin-bottom: 20px;
-}
+      if (answerMessage) {
+        answerMessage.innerHTML =
+          "Nice try 🙈😂<br>You don't get to escape that easily. ❤️";
+        answerMessage.style.display = "block";
+      }
 
-.divider {
-  width: 80px;
-  height: 2px;
-  background: #e98ab9;
-  margin: 20px 0;
-}
+      // Make the NO button move around
+      const maxX = Math.max(20, window.innerWidth - 180);
+      const maxY = Math.max(20, window.innerHeight - 120);
 
-.birthday-title {
-  color: #ffeaf7;
-}
+      noButton.style.position = "fixed";
+      noButton.style.left =
+        Math.floor(Math.random() * maxX) + "px";
+      noButton.style.top =
+        Math.floor(Math.random() * maxY) + "px";
+    });
 
-/* =========================================
-   BUTTONS
-   ========================================= */
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-}
-
-.primary-btn,
-.ghost-btn,
-.next-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 50px;
-  padding: 13px 25px;
-  border-radius: 999px;
-  color: #fff;
-  font-size: 17px;
-  margin-top: 30px;
-  transition: 0.25s ease;
-}
-
-.primary-btn {
-  background: linear-gradient(135deg, #ec75b4, #b94491);
-  box-shadow: 0 10px 35px rgba(236, 117, 180, 0.2);
-}
-
-.primary-btn:hover,
-.ghost-btn:hover,
-.next-btn:hover {
-  transform: translateY(-3px);
-}
-
-.ghost-btn,
-.next-btn {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,170,215,0.25);
-}
-
-.next-btn {
-  margin-top: 35px;
-}
-
-/* =========================================
-   IMAGE / CHAT CARDS
-   ========================================= */
-
-.image-card,
-.chat-shot,
-.drawing-shot,
-.group-chat,
-.chat-image {
-  width: 100%;
-  max-width: 850px;
-  margin: 35px auto;
-  border-radius: 28px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 170, 215, 0.22);
-  background: rgba(255,255,255,0.04);
-  box-shadow: 0 20px 70px rgba(0,0,0,0.25);
-}
-
-.image-card img,
-.chat-shot img,
-.drawing-shot img,
-.group-chat img,
-.chat-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* =========================================
-   TEXT CARDS
-   ========================================= */
-
-.reply-card,
-.glow-card,
-.love-card,
-.memory-card,
-.story-card {
-  padding: 28px;
-  margin: 30px 0;
-  border-radius: 25px;
-  background: rgba(255,255,255,0.055);
-  border: 1px solid rgba(255,170,215,0.20);
-  box-shadow: 0 15px 50px rgba(0,0,0,0.15);
-}
-
-.reply-card p,
-.glow-card p,
-.love-card p {
-  color: #e7d3e0;
-  font-size: 18px;
-}
-
-.tag {
-  display: inline-block;
-  margin-top: 25px;
-  padding: 8px 15px;
-  border-radius: 999px;
-  color: #ff9fca;
-  background: rgba(255,120,190,0.08);
-}
-
-/* =========================================
-   QUESTION
-   ========================================= */
-
-.question-section {
-  margin-top: 60px;
-}
-
-.question-label {
-  color: #f08ab9;
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.question-title {
-  margin-top: 15px;
-}
-
-.question-text {
-  font-size: 20px;
-  color: #f0dce8;
-  margin-top: 25px;
-}
-
-.answer-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 25px;
-}
-
-.answer-buttons button {
-  padding: 13px 28px;
-  border-radius: 12px;
-  font-size: 18px;
-  background: #fff;
-  color: #291322;
-  transition: 0.25s ease;
-}
-
-.answer-buttons button:hover {
-  transform: scale(1.05);
-}
-
-#yesBtn {
-  background: #ff8fc7;
-}
-
-#noBtn {
-  background: #eee;
-}
-
-#answerMessage {
-  display: none;
-  margin-top: 25px;
-  padding: 20px;
-  border-radius: 18px;
-  background: rgba(255,120,190,0.10);
-  border: 1px solid rgba(255,150,210,0.25);
-  color: #ffe6f4;
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-/* =========================================
-   PUZZLE
-   ========================================= */
-
-.puzzle-section {
-  margin-top: 55px;
-}
-
-.puzzle-title {
-  margin-top: 12px;
-}
-
-.puzzle-instruction {
-  color: #e1cadb;
-  font-size: 18px;
-  margin-top: 20px;
-}
-
-#puzzleDisplay {
-  min-height: 50px;
-  margin: 25px 0 20px;
-  padding: 12px 18px;
-  border-radius: 15px;
-  border: 1px solid rgba(255,160,210,0.22);
-  background: rgba(255,255,255,0.05);
-  color: #ffb1d5;
-  font-size: 28px;
-  letter-spacing: 8px;
-  text-align: center;
-}
-
-#puzzle {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.puzzle-letter {
-  width: 55px;
-  height: 55px;
-  border-radius: 12px;
-  background: #fff;
-  color: #25121e;
-  font-size: 22px;
-  font-weight: bold;
-  transition: 0.2s ease;
-}
-
-.puzzle-letter:hover {
-  transform: translateY(-4px);
-}
-
-.puzzle-letter.selected {
-  opacity: 0.45;
-  transform: scale(0.92);
-}
-
-.puzzle-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-#checkPuzzle,
-#resetPuzzle {
-  padding: 12px 22px;
-  border-radius: 12px;
-  font-size: 17px;
-}
-
-#checkPuzzle {
-  background: #ff91c7;
-  color: #291322;
-}
-
-#resetPuzzle {
-  background: rgba(255,255,255,0.10);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.18);
-}
-
-#puzzleResult {
-  display: none;
-  margin-top: 20px;
-  padding: 18px;
-  border-radius: 18px;
-  background: rgba(255,120,190,0.10);
-  border: 1px solid rgba(255,150,210,0.25);
-  color: #ffe8f4;
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-/* =========================================
-   HEART BURST
-   ========================================= */
-
-.burst-heart {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  font-size: 22px;
-  animation: heartBurst 1.3s ease-out forwards;
-}
-
-@keyframes heartBurst {
-  0% {
-    transform: translate(0,0) scale(0.5);
-    opacity: 1;
   }
 
-  100% {
-    transform:
-      translate(
-        calc(-80px + 160px * var(--x)),
-        calc(-80px - 160px * var(--y))
-      )
-      scale(1.4);
-    opacity: 0;
+
+  // -------------------------------
+  // DISHRA PUZZLE
+  // -------------------------------
+
+  const puzzleContainer =
+    document.querySelector("#puzzle");
+
+  const checkButton =
+    document.querySelector("#checkPuzzle");
+
+  const resetButton =
+    document.querySelector("#resetPuzzle");
+
+  const puzzleResult =
+    document.querySelector("#puzzleResult");
+
+
+  let selectedLetters = [];
+
+  // Correct word
+  const correctWord = "DISHRA";
+
+  // Letters
+  const letters = ["D", "I", "S", "H", "R", "A"];
+
+
+  function createPuzzle() {
+
+    if (!puzzleContainer) return;
+
+    puzzleContainer.innerHTML = "";
+
+    selectedLetters = [];
+
+    if (puzzleResult) {
+      puzzleResult.innerHTML = "";
+      puzzleResult.style.display = "none";
+    }
+
+    // Shuffle letters
+    const shuffled = [...letters].sort(
+      () => Math.random() - 0.5
+    );
+
+    shuffled.forEach(letter => {
+
+      const button = document.createElement("button");
+
+      button.className = "puzzle-letter";
+      button.textContent = letter;
+
+      button.addEventListener("click", () => {
+
+        if (button.classList.contains("selected")) {
+          return;
+        }
+
+        button.classList.add("selected");
+
+        selectedLetters.push(letter);
+
+        button.style.opacity = "0.5";
+        button.style.transform = "scale(0.9)";
+
+        updatePuzzleDisplay();
+      });
+
+      puzzleContainer.appendChild(button);
+    });
+
+    updatePuzzleDisplay();
   }
-}
 
-/* =========================================
-   MUSIC BUTTON
-   ========================================= */
 
-.music-btn {
-  position: fixed;
-  right: 20px;
-  bottom: 25px;
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: rgba(25,10,25,0.85);
-  border: 1px solid rgba(255,170,215,0.30);
-  color: white;
-  font-size: 22px;
-  z-index: 1000;
-}
+  function updatePuzzleDisplay() {
 
-/* =========================================
-   MOBILE
-   ========================================= */
+    const display =
+      document.querySelector("#puzzleDisplay");
 
-@media (max-width: 600px) {
+    if (!display) return;
 
-  .page {
-    padding: 45px 22px 90px;
+    if (selectedLetters.length === 0) {
+      display.textContent = "_ _ _ _ _ _";
+    } else {
+
+      display.textContent =
+        selectedLetters.join(" ");
+    }
   }
 
-  .hero-content {
-    padding-top: 40px;
+
+  // CHECK BUTTON
+
+  if (checkButton) {
+
+    checkButton.addEventListener("click", () => {
+
+      const answer = selectedLetters.join("");
+
+      if (answer === correctWord) {
+
+        if (puzzleResult) {
+          puzzleResult.innerHTML =
+            "🎉 Perfect! You spelled DISHRA! ❤️<br>Our favourite little word. 🥹";
+          puzzleResult.style.display = "block";
+        }
+
+        createHearts(20);
+
+      } else {
+
+        if (puzzleResult) {
+          puzzleResult.innerHTML =
+            "Almost... 👀❤️<br>Try arranging the letters again.";
+          puzzleResult.style.display = "block";
+        }
+
+      }
+
+    });
+
   }
 
-  .hero-orbit {
-    width: 280px;
-    height: 280px;
-    right: -150px;
+
+  // RESET BUTTON
+
+  if (resetButton) {
+
+    resetButton.addEventListener("click", () => {
+      createPuzzle();
+    });
+
   }
 
-  .chapter {
-    font-size: 12px;
-    letter-spacing: 3px;
+
+  // Start puzzle
+  createPuzzle();
+
+
+  // -------------------------------
+  // HEART ANIMATION
+  // -------------------------------
+
+  function createHearts(amount = 10) {
+
+    for (let i = 0; i < amount; i++) {
+
+      const heart = document.createElement("div");
+
+      heart.innerHTML = "❤️";
+
+      heart.style.position = "fixed";
+      heart.style.left =
+        Math.random() * 100 + "vw";
+
+      heart.style.bottom = "-30px";
+
+      heart.style.fontSize =
+        (15 + Math.random() * 25) + "px";
+
+      heart.style.pointerEvents = "none";
+
+      heart.style.zIndex = "9999";
+
+      heart.style.transition =
+        "transform 3s ease-out, opacity 3s ease-out";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+
+        heart.style.transform =
+          `translateY(-${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`;
+
+        heart.style.opacity = "0";
+
+      }, 50);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 3200);
+
+    }
+
   }
 
-  .hero-copy,
-  .page-copy,
-  .question-text,
-  .puzzle-instruction {
-    font-size: 17px;
-  }
 
-  .reply-card,
-  .glow-card,
-  .love-card,
-  .memory-card,
-  .story-card {
-    padding: 22px;
-  }
+  // -------------------------------
+  // CLICK HEART EFFECT
+  // -------------------------------
 
-  #puzzleDisplay {
-    font-size: 23px;
-    letter-spacing: 5px;
-  }
+  document.addEventListener("click", event => {
 
-  .puzzle-letter {
-    width: 50px;
-    height: 50px;
-  }
-   }
+    const heart = document.createElement("span");
+
+    heart.textContent = "❤️";
+
+    heart.style.position = "fixed";
+    heart.style.left = event.clientX + "px";
+    heart.style.top = event.clientY + "px";
+
+    heart.style.pointerEvents = "none";
+    heart.style.fontSize = "18px";
+    heart.style.zIndex = "9999";
+
+    heart.style.transition =
+      "transform 1s ease, opacity 1s ease";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.style.transform =
+        "translateY(-60px) scale(1.5)";
+      heart.style.opacity = "0";
+    }, 20);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 1100);
+
+  });
+
+
+  // -------------------------------
+  // KEYBOARD SUPPORT
+  // -------------------------------
+
+  document.addEventListener("keydown", event => {
+
+    if (event.key === "ArrowRight") {
+
+      const nextPage =
+        document.querySelector(
+          `[data-page="${currentPage + 1}"]`
+        );
+
+      if (nextPage) {
+        showPage(currentPage + 1);
+      }
+
+    }
+
+    if (event.key === "ArrowLeft") {
+
+      const previousPage =
+        document.querySelector(
+          `[data-page="${currentPage - 1}"]`
+        );
+
+      if (previousPage) {
+        showPage(currentPage - 1);
+      }
+
+    }
+
+  });
+
+});
