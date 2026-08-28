@@ -1,12 +1,7 @@
-/* =========================================
-   DISHRA BIRTHDAY WEBSITE
-   COMPLETE CSS
-   ========================================= */
-
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html {
@@ -16,109 +11,42 @@ html {
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255, 105, 180, 0.10), transparent 30%),
-    radial-gradient(circle at 80% 80%, rgba(180, 80, 160, 0.12), transparent 30%),
-    linear-gradient(145deg, #100914, #1c0d1d 45%, #100812);
-  color: #fff4fb;
-  font-family: Arial, Helvetica, sans-serif;
+    radial-gradient(circle at 20% 10%, rgba(255, 100, 180, .12), transparent 35%),
+    radial-gradient(circle at 90% 70%, rgba(170, 70, 170, .10), transparent 35%),
+    #100914;
+  color: #f8edf5;
+  font-family: Arial, sans-serif;
   overflow-x: hidden;
 }
 
-/* =========================================
-   HEART BACKGROUND
-   ========================================= */
+/* ---------- GENERAL ---------- */
 
-#hearts {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 20;
+button {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
-
-.floating-heart {
-  position: fixed;
-  bottom: -50px;
-  pointer-events: none;
-  user-select: none;
-  opacity: 0.75;
-  animation: floatHeart linear forwards;
-}
-
-@keyframes floatHeart {
-  0% {
-    transform: translateY(0) rotate(0deg) scale(0.8);
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 0.8;
-  }
-
-  90% {
-    opacity: 0.6;
-  }
-
-  100% {
-    transform: translateY(-115vh) rotate(25deg) scale(1.2);
-    opacity: 0;
-  }
-}
-
-/* =========================================
-   NOISE
-   ========================================= */
-
-.noise {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 5;
-  opacity: 0.035;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(255,255,255,0.15) 3px
-    );
-}
-
-/* =========================================
-   MAIN
-   ========================================= */
-
-#app {
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
-  z-index: 10;
-}
-
-/* =========================================
-   PAGES
-   ========================================= */
 
 .page {
   display: none;
-  width: 100%;
   min-height: 100vh;
-  padding: 55px 24px 90px;
+  padding: 70px 20px 100px;
   position: relative;
-  overflow: hidden;
 }
 
 .page.active {
   display: block;
-  animation: pageIn 0.7s ease both;
+  animation: pageIn .7s ease;
+}
+
+.page-inner {
+  width: min(100%, 850px);
+  margin: auto;
 }
 
 @keyframes pageIn {
   from {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateY(20px);
   }
 
   to {
@@ -127,24 +55,12 @@ body {
   }
 }
 
-/* =========================================
-   GENERAL CONTENT
-   ========================================= */
-
-.page-inner,
-.hero-content {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.chapter {
-  color: #f18abb;
-  font-size: 14px;
-  letter-spacing: 4px;
+.eyebrow {
+  color: #f58bbb;
   text-transform: uppercase;
-  margin-bottom: 35px;
-  font-weight: 600;
+  letter-spacing: 3px;
+  font-size: 13px;
+  margin-bottom: 18px;
 }
 
 h1,
@@ -152,451 +68,927 @@ h2,
 h3 {
   font-family: Georgia, "Times New Roman", serif;
   font-weight: 400;
-  color: #fff3fb;
-}
-
-h1 {
-  font-size: clamp(48px, 12vw, 100px);
-  line-height: 0.95;
 }
 
 h2 {
-  font-size: clamp(38px, 9vw, 75px);
-  line-height: 1.05;
-}
-
-h3 {
-  font-size: 30px;
+  font-size: clamp(36px, 8vw, 65px);
+  line-height: 1.08;
+  margin-bottom: 25px;
 }
 
 p {
   line-height: 1.7;
 }
 
-.hero-copy,
-.page-copy {
-  color: #e1cbdc;
-  font-size: 19px;
-  margin-top: 25px;
+strong {
+  color: #ffb4d5;
 }
 
-/* =========================================
-   HERO
-   ========================================= */
 
-.hero-orbit {
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border: 1px solid rgba(255, 130, 190, 0.18);
-  border-radius: 50%;
-  top: 8%;
-  right: -180px;
-  animation: orbit 12s linear infinite;
-}
-
-@keyframes orbit {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* ---------- PAGE 1 ---------- */
 
 .hero-content {
-  position: relative;
-  z-index: 2;
-  padding-top: 70px;
-}
-
-.eyebrow {
-  color: #f19ac5;
-  font-size: 14px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.names {
-  margin-bottom: 20px;
-}
-
-.divider {
-  width: 80px;
-  height: 2px;
-  background: #e98ab9;
-  margin: 20px 0;
-}
-
-.birthday-title {
-  color: #ffeaf7;
-}
-
-/* =========================================
-   BUTTONS
-   ========================================= */
-
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-}
-
-.primary-btn,
-.ghost-btn,
-.next-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 50px;
-  padding: 13px 25px;
-  border-radius: 999px;
-  color: #fff;
-  font-size: 17px;
-  margin-top: 30px;
-  transition: 0.25s ease;
-}
-
-.primary-btn {
-  background: linear-gradient(135deg, #ec75b4, #b94491);
-  box-shadow: 0 10px 35px rgba(236, 117, 180, 0.2);
-}
-
-.primary-btn:hover,
-.ghost-btn:hover,
-.next-btn:hover {
-  transform: translateY(-3px);
-}
-
-.ghost-btn,
-.next-btn {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,170,215,0.25);
-}
-
-.next-btn {
-  margin-top: 35px;
-}
-
-/* =========================================
-   IMAGE / CHAT CARDS
-   ========================================= */
-
-.image-card,
-.chat-shot,
-.drawing-shot,
-.group-chat,
-.chat-image {
-  width: 100%;
-  max-width: 850px;
-  margin: 35px auto;
-  border-radius: 28px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 170, 215, 0.22);
-  background: rgba(255,255,255,0.04);
-  box-shadow: 0 20px 70px rgba(0,0,0,0.25);
-}
-
-.image-card img,
-.chat-shot img,
-.drawing-shot img,
-.group-chat img,
-.chat-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* =========================================
-   TEXT CARDS
-   ========================================= */
-
-.reply-card,
-.glow-card,
-.love-card,
-.memory-card,
-.story-card {
-  padding: 28px;
-  margin: 30px 0;
-  border-radius: 25px;
-  background: rgba(255,255,255,0.055);
-  border: 1px solid rgba(255,170,215,0.20);
-  box-shadow: 0 15px 50px rgba(0,0,0,0.15);
-}
-
-.reply-card p,
-.glow-card p,
-.love-card p {
-  color: #e7d3e0;
-  font-size: 18px;
-}
-
-.tag {
-  display: inline-block;
-  margin-top: 25px;
-  padding: 8px 15px;
-  border-radius: 999px;
-  color: #ff9fca;
-  background: rgba(255,120,190,0.08);
-}
-
-/* =========================================
-   QUESTION
-   ========================================= */
-
-.question-section {
-  margin-top: 60px;
-}
-
-.question-label {
-  color: #f08ab9;
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.question-title {
-  margin-top: 15px;
-}
-
-.question-text {
-  font-size: 20px;
-  color: #f0dce8;
-  margin-top: 25px;
-}
-
-.answer-buttons {
+  min-height: calc(100vh - 100px);
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 25px;
-}
-
-.answer-buttons button {
-  padding: 13px 28px;
-  border-radius: 12px;
-  font-size: 18px;
-  background: #fff;
-  color: #291322;
-  transition: 0.25s ease;
-}
-
-.answer-buttons button:hover {
-  transform: scale(1.05);
-}
-
-#yesBtn {
-  background: #ff8fc7;
-}
-
-#noBtn {
-  background: #eee;
-}
-
-#answerMessage {
-  display: none;
-  margin-top: 25px;
-  padding: 20px;
-  border-radius: 18px;
-  background: rgba(255,120,190,0.10);
-  border: 1px solid rgba(255,150,210,0.25);
-  color: #ffe6f4;
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-/* =========================================
-   PUZZLE
-   ========================================= */
-
-.puzzle-section {
-  margin-top: 55px;
-}
-
-.puzzle-title {
-  margin-top: 12px;
-}
-
-.puzzle-instruction {
-  color: #e1cadb;
-  font-size: 18px;
-  margin-top: 20px;
-}
-
-#puzzleDisplay {
-  min-height: 50px;
-  margin: 25px 0 20px;
-  padding: 12px 18px;
-  border-radius: 15px;
-  border: 1px solid rgba(255,160,210,0.22);
-  background: rgba(255,255,255,0.05);
-  color: #ffb1d5;
-  font-size: 28px;
-  letter-spacing: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-#puzzle {
+.names {
+  font-size: clamp(48px, 13vw, 100px);
+  line-height: 1;
+}
+
+.names span {
+  color: #ff79b5;
+}
+
+.divider {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 20px;
+  align-items: center;
+  gap: 15px;
+  margin: 25px 0;
+  color: #ff8fc1;
 }
 
-.puzzle-letter {
+.divider i {
+  display: block;
   width: 55px;
-  height: 55px;
-  border-radius: 12px;
-  background: #fff;
-  color: #25121e;
-  font-size: 22px;
-  font-weight: bold;
-  transition: 0.2s ease;
+  height: 1px;
+  background: #ff8fc1;
 }
 
-.puzzle-letter:hover {
+.birthday-title {
+  font-size: clamp(32px, 7vw, 60px);
+}
+
+.hero-copy {
+  font-size: 18px;
+  opacity: .8;
+  margin: 10px 0 30px;
+}
+
+.tag {
+  margin-top: 25px;
+  color: #ff8fc1;
+}
+
+
+/* ---------- BUTTONS ---------- */
+
+.primary-btn,
+.ghost-btn {
+  border: none;
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.primary-btn {
+  padding: 16px 30px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #ff70b0, #c95b9d);
+  color: white;
+  font-size: 17px;
+  font-weight: 700;
+  box-shadow: 0 10px 35px rgba(255, 80, 160, .25);
+}
+
+.primary-btn:hover,
+.ghost-btn:hover {
   transform: translateY(-4px);
 }
 
-.puzzle-letter.selected {
-  opacity: 0.45;
-  transform: scale(0.92);
+.primary-btn span,
+.ghost-btn span {
+  margin-left: 8px;
 }
 
-.puzzle-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-#checkPuzzle,
-#resetPuzzle {
-  padding: 12px 22px;
-  border-radius: 12px;
-  font-size: 17px;
-}
-
-#checkPuzzle {
-  background: #ff91c7;
-  color: #291322;
-}
-
-#resetPuzzle {
-  background: rgba(255,255,255,0.10);
+.ghost-btn {
+  margin-top: 45px;
+  padding: 15px 28px;
+  border-radius: 50px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,150,200,.25);
   color: white;
-  border: 1px solid rgba(255,255,255,0.18);
+  font-size: 16px;
 }
 
-#puzzleResult {
-  display: none;
-  margin-top: 20px;
-  padding: 18px;
-  border-radius: 18px;
-  background: rgba(255,120,190,0.10);
-  border: 1px solid rgba(255,150,210,0.25);
-  color: #ffe8f4;
+
+/* ---------- PAGE 2 ---------- */
+
+.letter-page h2 {
+  max-width: 750px;
+}
+
+.letter-card,
+.personal-note {
+  margin-top: 30px;
+  padding: 30px;
+  border-radius: 28px;
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,150,200,.16);
+  box-shadow: 0 20px 70px rgba(0,0,0,.2);
+}
+
+.letter-card p,
+.personal-note p {
+  margin-bottom: 18px;
+}
+
+.personal-note {
+  border-left: 3px solid #ff78b7;
+}
+
+.script-label {
+  color: #ff91c1;
+  font-size: 14px;
+}
+
+
+/* ---------- PAGE 3 ---------- */
+
+.date-chip {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: rgba(255,120,180,.1);
+  color: #ff9bc5;
+  margin-bottom: 25px;
+}
+
+.lead {
+  font-size: 20px;
+  opacity: .85;
+  margin-bottom: 40px;
+}
+
+.timeline {
+  border-left: 1px solid rgba(255,150,200,.3);
+  padding-left: 30px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 65px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -55px;
+  top: 0;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #ff80b9;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.timeline-copy h3 {
+  font-size: clamp(30px, 6vw, 45px);
+  margin-bottom: 20px;
+}
+
+.timeline-copy p {
   font-size: 18px;
-  line-height: 1.6;
+  opacity: .8;
 }
 
-/* =========================================
-   HEART BURST
-   ========================================= */
-
-.burst-heart {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  font-size: 22px;
-  animation: heartBurst 1.3s ease-out forwards;
+.emoji-big {
+  font-size: 75px;
+  margin-top: 20px;
 }
 
-@keyframes heartBurst {
+.story-image,
+.drawing-shot img,
+.group-card img {
+  width: 100%;
+  display: block;
+  border-radius: 22px;
+  margin-top: 25px;
+}
+
+
+/* ---------- PAGE 4 ---------- */
+
+.chat-stage {
+  margin-top: 30px;
+}
+
+.chat-shot img {
+  width: 100%;
+  max-height: 600px;
+  object-fit: contain;
+  border-radius: 25px;
+}
+
+.reply-card {
+  margin: 25px auto;
+  padding: 22px;
+  max-width: 600px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,150,200,.2);
+}
+
+.reply-card span {
+  color: #ff8fbe;
+  font-size: 13px;
+}
+
+.reply-card p {
+  margin-top: 10px;
+  font-size: 19px;
+}
+
+.caption {
+  text-align: center;
+  margin-top: 20px;
+  opacity: .75;
+}
+
+
+/* ---------- PAGE 5 ---------- */
+
+.group-card {
+  position: relative;
+  margin: 30px 0;
+}
+
+.caught-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  background: #ff78b7;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.stalk-copy {
+  padding: 30px;
+  border-radius: 25px;
+  background: rgba(255,255,255,.045);
+  text-align: center;
+}
+
+.stalk-copy p {
+  margin: 10px 0;
+}
+
+.small {
+  color: #ff9ac5;
+}
+
+
+/* ---------- PAGE 6 GALLERY ---------- */
+
+.memory-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 35px;
+}
+
+.memory-card {
+  margin: 0;
+  padding: 12px;
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,150,200,.14);
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.memory-card.wide {
+  grid-column: 1 / -1;
+}
+
+.memory-card img {
+  width: 100%;
+  display: block;
+  border-radius: 15px;
+}
+
+.memory-card figcaption {
+  padding: 15px 8px 8px;
+  font-size: 14px;
+  opacity: .8;
+}
+
+.memory-line {
+  margin: 40px 0;
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: clamp(28px, 6vw, 45px);
+  color: #ffd7e8;
+}
+
+
+/* ================================= */
+/* INTERACTIVE QUESTION */
+/* ================================= */
+
+.interactive-card {
+  width: 100%;
+  margin: 55px auto;
+  padding: 35px 25px;
+  text-align: center;
+
+  border-radius: 30px;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(255,100,180,.10),
+      transparent 60%
+    ),
+    rgba(255,255,255,.045);
+
+  border: 1px solid rgba(255,150,200,.22);
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.25);
+}
+
+.chapter-label {
+  color: #ff82b9;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+.interactive-card h2 {
+  font-size: clamp(35px, 8vw, 58px);
+}
+
+.question-text {
+  max-width: 650px;
+  margin: 0 auto 30px;
+  font-size: 18px;
+  opacity: .85;
+}
+
+
+/* YES / NO */
+
+.answer-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.answer-btn {
+  min-width: 125px;
+  padding: 15px 25px;
+
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,.15);
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+.yes-btn {
+  background: linear-gradient(135deg,#ff78b7,#d9569b);
+  color: white;
+
+  box-shadow:
+    0 8px 30px rgba(255,80,160,.25);
+}
+
+.no-btn {
+  background: rgba(255,255,255,.07);
+  color: white;
+}
+
+.answer-btn:hover {
+  transform: translateY(-5px) scale(1.04);
+}
+
+.answer-btn:active {
+  transform: scale(.95);
+}
+
+.answer-message {
+  min-height: 30px;
+  margin-top: 25px;
+
+  color: #ff91c2;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+/* ================================= */
+/* DISHRA PUZZLE */
+/* ================================= */
+
+.puzzle-card {
+  position: relative;
+}
+
+.puzzle-letters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  max-width: 420px;
+  margin: 30px auto;
+}
+
+.puzzle-letters button {
+  width: 55px;
+  height: 55px;
+
+  border: 1px solid rgba(255,150,200,.25);
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.10),
+      rgba(255,255,255,.035)
+    );
+
+  color: white;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.18);
+
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    opacity .25s ease;
+}
+
+.puzzle-letters button:hover {
+  transform: translateY(-5px);
+  background: rgba(255,120,180,.18);
+}
+
+.puzzle-letters button:active {
+  transform: scale(.92);
+}
+
+.puzzle-letters button.selected {
+  background: #ff78b7;
+  opacity: .35;
+  transform: scale(.9);
+}
+
+
+/* BUILT WORD */
+
+.word-box {
+  width: min(100%, 400px);
+  min-height: 65px;
+
+  margin: 25px auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 20px;
+
+  background: rgba(0,0,0,.18);
+
+  border: 1px solid rgba(255,150,200,.2);
+
+  color: #ffd6e8;
+
+  font-size: 25px;
+  font-weight: 700;
+
+  letter-spacing: 7px;
+
+  box-shadow:
+    inset 0 0 30px rgba(0,0,0,.15);
+}
+
+
+/* PUZZLE BUTTONS */
+
+.check-puzzle,
+.reset-puzzle {
+  padding: 13px 23px;
+
+  border-radius: 50px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: .25s ease;
+}
+
+.check-puzzle {
+  border: none;
+
+  background: linear-gradient(
+    135deg,
+    #ff78b7,
+    #d9579d
+  );
+
+  color: white;
+
+  box-shadow:
+    0 8px 25px rgba(255,80,160,.25);
+}
+
+.reset-puzzle {
+  border: 1px solid rgba(255,150,200,.2);
+
+  background: rgba(255,255,255,.06);
+
+  color: white;
+}
+
+.check-puzzle:hover,
+.reset-puzzle:hover {
+  transform: translateY(-3px);
+}
+
+.puzzle-message {
+  min-height: 30px;
+  margin-top: 22px;
+
+  color: #ff91c2;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+/* SUCCESS */
+
+.success {
+  animation: successPop .65s ease;
+}
+
+@keyframes successPop {
+
   0% {
-    transform: translate(0,0) scale(0.5);
-    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.035);
+    box-shadow:
+      0 0 60px rgba(255,100,180,.25);
   }
 
   100% {
+    transform: scale(1);
+  }
+}
+
+
+/* ---------- PAGE 7 ---------- */
+
+.final-inner {
+  text-align: center;
+}
+
+.question {
+  font-size: clamp(40px, 9vw, 75px);
+}
+
+.final-copy {
+  width: min(100%, 650px);
+  margin: 35px auto;
+  font-size: 18px;
+  opacity: .85;
+}
+
+.final-copy p {
+  margin-bottom: 18px;
+}
+
+.future-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin: 40px 0;
+}
+
+.future-card {
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,150,200,.15);
+}
+
+.future-card img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.future-card span {
+  display: block;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.thank-you {
+  padding: 30px;
+  border-radius: 28px;
+  background: rgba(255,255,255,.045);
+}
+
+.thank-you h3 {
+  font-size: 38px;
+  color: #ff9ac5;
+  margin-bottom: 20px;
+}
+
+.thank-you p {
+  margin-bottom: 15px;
+}
+
+.ending {
+  padding: 70px 0 30px;
+}
+
+.tiny-hearts {
+  color: #ff79b5;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.ending h1 {
+  font-size: clamp(40px, 10vw, 75px);
+  line-height: 1.05;
+}
+
+.ending h1 em {
+  color: #ff8fbe;
+}
+
+.ending > p {
+  margin-top: 20px;
+  opacity: .7;
+}
+
+.hash {
+  color: #ff91c1;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.signature {
+  color: #ffb0d1;
+}
+
+
+/* ---------- PROGRESS ---------- */
+
+.progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,.08);
+  z-index: 1000;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  width: 14%;
+  background: linear-gradient(
+    90deg,
+    #ff78b7,
+    #d87acb
+  );
+  transition: width .5s ease;
+}
+
+
+/* ---------- MUSIC ---------- */
+
+.music-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 30px;
+
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255,150,200,.25);
+
+  background: rgba(30,10,30,.8);
+
+  color: white;
+
+  font-size: 22px;
+
+  z-index: 900;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(10px);
+}
+
+
+/* ---------- TOAST ---------- */
+
+.toast {
+  position: fixed;
+
+  left: 50%;
+  bottom: 95px;
+
+  transform: translateX(-50%) translateY(20px);
+
+  padding: 12px 20px;
+
+  border-radius: 30px;
+
+  background: rgba(30,10,30,.9);
+
+  border: 1px solid rgba(255,150,200,.2);
+
+  font-size: 13px;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: .4s ease;
+
+  z-index: 1100;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+/* ---------- HEARTS ---------- */
+
+#hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 800;
+}
+
+#hearts .heart {
+  position: absolute;
+  bottom: -30px;
+  animation: floatHeart 4s linear forwards;
+}
+
+@keyframes floatHeart {
+
+  from {
     transform:
-      translate(
-        calc(-80px + 160px * var(--x)),
-        calc(-80px - 160px * var(--y))
-      )
-      scale(1.4);
+      translateY(0)
+      rotate(0deg)
+      scale(.8);
+
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  to {
+    transform:
+      translateY(-110vh)
+      rotate(30deg)
+      scale(1.3);
+
     opacity: 0;
   }
 }
 
-/* =========================================
-   MUSIC BUTTON
-   ========================================= */
 
-.music-btn {
-  position: fixed;
-  right: 20px;
-  bottom: 25px;
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: rgba(25,10,25,0.85);
-  border: 1px solid rgba(255,170,215,0.30);
-  color: white;
-  font-size: 22px;
-  z-index: 1000;
-}
-
-/* =========================================
-   MOBILE
-   ========================================= */
+/* ---------- MOBILE ---------- */
 
 @media (max-width: 600px) {
 
   .page {
-    padding: 45px 22px 90px;
+    padding:
+      55px 14px
+      90px;
   }
 
-  .hero-content {
-    padding-top: 40px;
+  .page-inner {
+    width: 100%;
   }
 
-  .hero-orbit {
-    width: 280px;
-    height: 280px;
-    right: -150px;
+  h2 {
+    font-size: 40px;
   }
 
-  .chapter {
-    font-size: 12px;
-    letter-spacing: 3px;
-  }
-
-  .hero-copy,
-  .page-copy,
-  .question-text,
-  .puzzle-instruction {
+  .lead {
     font-size: 17px;
   }
 
-  .reply-card,
-  .glow-card,
-  .love-card,
-  .memory-card,
-  .story-card {
+  .letter-card,
+  .personal-note {
     padding: 22px;
   }
 
-  #puzzleDisplay {
-    font-size: 23px;
+  .timeline {
+    padding-left: 25px;
+  }
+
+  .timeline-dot {
+    left: -48px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .timeline-copy h3 {
+    font-size: 31px;
+  }
+
+  .memory-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .memory-card.wide {
+    grid-column: auto;
+  }
+
+  .interactive-card {
+    padding: 30px 16px;
+    margin: 45px auto;
+  }
+
+  .interactive-card h2 {
+    font-size: 39px;
+  }
+
+  .question-text {
+    font-size: 16px;
+  }
+
+  .answer-btn {
+    min-width: 115px;
+  }
+
+  .puzzle-letters {
+    gap: 8px;
+  }
+
+  .puzzle-letters button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .word-box {
+    font-size: 21px;
     letter-spacing: 5px;
   }
 
-  .puzzle-letter {
+  .future-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .music-toggle {
+    right: 15px;
+    bottom: 25px;
     width: 50px;
     height: 50px;
   }
+
 }
