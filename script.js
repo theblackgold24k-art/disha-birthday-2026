@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener("click", function (event) {
 
       event.preventDefault();
-      event.stopPropagation();
 
       const nextPage = parseInt(
         button.getAttribute("data-next"),
@@ -69,10 +68,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (yesBtn) {
 
+    yesBtn.type = "button";
+
     yesBtn.addEventListener("click", function (event) {
 
       event.preventDefault();
-      event.stopPropagation();
 
       if (answerMessage) {
 
@@ -99,10 +99,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (noBtn) {
 
+    noBtn.type = "button";
+
     noBtn.addEventListener("click", function (event) {
 
       event.preventDefault();
-      event.stopPropagation();
 
       if (answerMessage) {
 
@@ -211,7 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
       button.addEventListener("click", function (event) {
 
         event.preventDefault();
-        event.stopPropagation();
 
         if (
           button.classList.contains("selected")
@@ -235,14 +235,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
+  /* =====================================
+     CHECK PUZZLE
+     ===================================== */
+
   if (checkPuzzle) {
+
+    checkPuzzle.type = "button";
 
     checkPuzzle.addEventListener(
       "click",
       function (event) {
 
         event.preventDefault();
-        event.stopPropagation();
 
         const answer =
           selectedLetters.join("");
@@ -279,14 +284,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
+  /* =====================================
+     RESET PUZZLE
+     ===================================== */
+
   if (resetPuzzle) {
+
+    resetPuzzle.type = "button";
 
     resetPuzzle.addEventListener(
       "click",
       function (event) {
 
         event.preventDefault();
-        event.stopPropagation();
 
         createPuzzle();
 
@@ -349,6 +359,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
+  /* Start floating hearts */
+
   for (let i = 0; i < 12; i++) {
 
     setTimeout(
@@ -357,6 +369,8 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
   }
+
+  /* Continue forever */
 
   setInterval(
     createFloatingHeart,
@@ -378,8 +392,11 @@ document.addEventListener("DOMContentLoaded", function () {
       heart.className = "burst-heart";
       heart.textContent = "❤️";
 
-      heart.style.left = "50%";
-      heart.style.top = "50%";
+      heart.style.left =
+        "50%";
+
+      heart.style.top =
+        "50%";
 
       heart.style.setProperty(
         "--x",
@@ -414,6 +431,9 @@ document.addEventListener("DOMContentLoaded", function () {
     "click",
     function (event) {
 
+      /* Don't create extra heart when
+         clicking puzzle letters */
+
       if (
         event.target.classList.contains(
           "puzzle-letter"
@@ -421,6 +441,9 @@ document.addEventListener("DOMContentLoaded", function () {
       ) {
         return;
       }
+
+      /* Don't create extra heart when
+         clicking any button */
 
       if (
         event.target.tagName === "BUTTON" ||
@@ -435,15 +458,24 @@ document.addEventListener("DOMContentLoaded", function () {
       heart.textContent = "♡";
 
       heart.style.position = "fixed";
+
       heart.style.left =
         event.clientX + "px";
+
       heart.style.top =
         event.clientY + "px";
 
-      heart.style.color = "#ff91c7";
-      heart.style.fontSize = "20px";
-      heart.style.pointerEvents = "none";
-      heart.style.zIndex = "9999";
+      heart.style.color =
+        "#ff91c7";
+
+      heart.style.fontSize =
+        "20px";
+
+      heart.style.pointerEvents =
+        "none";
+
+      heart.style.zIndex =
+        "9999";
 
       heart.style.transition =
         "transform 1s ease, opacity 1s ease";
@@ -455,7 +487,8 @@ document.addEventListener("DOMContentLoaded", function () {
         heart.style.transform =
           "translateY(-60px) scale(1.5)";
 
-        heart.style.opacity = "0";
+        heart.style.opacity =
+          "0";
 
       }, 20);
 
