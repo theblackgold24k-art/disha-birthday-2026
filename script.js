@@ -39,7 +39,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   nextButtons.forEach(function (button) {
 
-    button.addEventListener("click", function () {
+    button.addEventListener("click", function (event) {
+
+      event.preventDefault();
+      event.stopPropagation();
 
       const nextPage = parseInt(
         button.getAttribute("data-next"),
@@ -66,7 +69,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (yesBtn) {
 
-    yesBtn.addEventListener("click", function () {
+    yesBtn.addEventListener("click", function (event) {
+
+      event.preventDefault();
+      event.stopPropagation();
 
       if (answerMessage) {
 
@@ -85,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       heartBurst(30);
+
     });
 
   }
@@ -92,7 +99,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (noBtn) {
 
-    noBtn.addEventListener("click", function () {
+    noBtn.addEventListener("click", function (event) {
+
+      event.preventDefault();
+      event.stopPropagation();
 
       if (answerMessage) {
 
@@ -119,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       noBtn.style.left = randomX + "px";
       noBtn.style.top = randomY + "px";
+
     });
 
   }
@@ -129,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
      ===================================== */
 
   const puzzle = document.getElementById("puzzle");
+
   const puzzleDisplay =
     document.getElementById("puzzleDisplay");
 
@@ -196,7 +208,10 @@ document.addEventListener("DOMContentLoaded", function () {
       button.className = "puzzle-letter";
       button.textContent = letter;
 
-      button.addEventListener("click", function () {
+      button.addEventListener("click", function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
 
         if (
           button.classList.contains("selected")
@@ -209,6 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
         selectedLetters.push(letter);
 
         updatePuzzleDisplay();
+
       });
 
       puzzle.appendChild(button);
@@ -223,7 +239,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     checkPuzzle.addEventListener(
       "click",
-      function () {
+      function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
 
         const answer =
           selectedLetters.join("");
@@ -264,8 +283,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     resetPuzzle.addEventListener(
       "click",
-      function () {
+      function (event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
         createPuzzle();
+
       }
     );
 
@@ -325,7 +349,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  // Start floating hearts
   for (let i = 0; i < 12; i++) {
 
     setTimeout(
@@ -335,7 +358,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   }
 
-  // Continue forever
   setInterval(
     createFloatingHeart,
     650
@@ -356,11 +378,8 @@ document.addEventListener("DOMContentLoaded", function () {
       heart.className = "burst-heart";
       heart.textContent = "❤️";
 
-      heart.style.left =
-        "50%";
-
-      heart.style.top =
-        "50%";
+      heart.style.left = "50%";
+      heart.style.top = "50%";
 
       heart.style.setProperty(
         "--x",
@@ -395,12 +414,17 @@ document.addEventListener("DOMContentLoaded", function () {
     "click",
     function (event) {
 
-      // Don't create extra heart when
-      // clicking puzzle letters.
       if (
         event.target.classList.contains(
           "puzzle-letter"
         )
+      ) {
+        return;
+      }
+
+      if (
+        event.target.tagName === "BUTTON" ||
+        event.target.closest("button")
       ) {
         return;
       }
