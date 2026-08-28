@@ -118,3 +118,154 @@
   const initial = Number((location.hash.match(/page-(\d+)/) || [])[1]);
   showPage(Number.isFinite(initial) && initial >= 1 && initial <= pages.length ? initial : 1, false);
 })();
+
+/* ============================= */
+/* YES / NO QUESTION */
+/* ============================= */
+
+function answerQuestion(answer) {
+
+  const message = document.getElementById("answerMessage");
+
+  if (answer === "yes") {
+
+    message.innerHTML =
+      "I knew it. 🥹❤️ You just made my day.";
+
+    message.style.color = "#ff78b7";
+
+  } else {
+
+    message.innerHTML =
+      "Nice try 😂 You can't escape that easily. ❤️";
+
+    message.style.color = "#ffffff";
+  }
+}
+
+
+/* ============================= */
+/* DISHRA PUZZLE */
+/* ============================= */
+
+let selectedLetters = [];
+let selectedButtons = [];
+
+function selectLetter(button) {
+
+  // Already selected?
+  if (button.classList.contains("selected")) {
+    return;
+  }
+
+  selectedLetters.push(button.innerText);
+  selectedButtons.push(button);
+
+  button.classList.add("selected");
+
+  updateWord();
+}
+
+
+function updateWord() {
+
+  const word = selectedLetters.join(" ");
+
+  document.getElementById("builtWord").innerText =
+    word || "_ _ _ _ _ _";
+}
+
+
+function checkPuzzle() {
+
+  const message = document.getElementById("puzzleMessage");
+  const card = document.querySelector(".puzzle-card");
+
+  const answer = selectedLetters.join("").toUpperCase();
+
+  if (answer === "DISHRA") {
+
+    message.innerHTML =
+      "Perfect! 🥹❤️ You found DISHRA.";
+
+    message.style.color = "#ff78b7";
+
+    card.classList.add("success");
+
+    // Little hearts
+    createHearts();
+
+  } else {
+
+    message.innerHTML =
+      "Hmm... not quite 😭 Try again.";
+
+    message.style.color = "#ffffff";
+  }
+}
+
+
+function resetPuzzle() {
+
+  selectedLetters = [];
+  selectedButtons = [];
+
+  document
+    .querySelectorAll("#puzzleLetters button")
+    .forEach(button => {
+      button.classList.remove("selected");
+    });
+
+  document.getElementById("builtWord").innerText =
+    "_ _ _ _ _ _";
+
+  document.getElementById("puzzleMessage").innerText = "";
+}
+
+
+/* ============================= */
+/* HEARTS EFFECT */
+/* ============================= */
+
+function createHearts() {
+
+  for (let i = 0; i < 15; i++) {
+
+    const heart = document.createElement("div");
+
+    heart.innerHTML = "❤️";
+
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "100vh";
+    heart.style.fontSize = (15 + Math.random() * 20) + "px";
+    heart.style.zIndex = "9999";
+    heart.style.pointerEvents = "none";
+
+    document.body.appendChild(heart);
+
+    heart.animate(
+      [
+        {
+          transform: "translateY(0) scale(1)",
+          opacity: 1
+        },
+        {
+          transform:
+            `translateY(-${300 + Math.random() * 400}px)
+             translateX(${Math.random() * 100 - 50}px)
+             scale(0.5)`,
+          opacity: 0
+        }
+      ],
+      {
+        duration: 1800 + Math.random() * 1000,
+        easing: "ease-out"
+      }
+    );
+
+    setTimeout(() => {
+      heart.remove();
+    }, 3000);
+  }
+}
