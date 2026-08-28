@@ -1,13 +1,13 @@
-// ===============================
-// DISHRA BIRTHDAY WEBSITE
-// Interactive Script
-// ===============================
+/* =========================================
+   DISHRA BIRTHDAY WEBSITE
+   COMPLETE JAVASCRIPT
+   ========================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-  // -------------------------------
-  // PAGE NAVIGATION
-  // -------------------------------
+  /* =====================================
+     PAGE NAVIGATION
+     ===================================== */
 
   const pages = document.querySelectorAll(".page");
   const nextButtons = document.querySelectorAll("[data-next]");
@@ -15,16 +15,19 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1;
 
   function showPage(pageNumber) {
-    pages.forEach(page => {
+
+    if (!pages.length) return;
+
+    pages.forEach(function (page) {
       page.classList.remove("active");
     });
 
-    const targetPage = document.querySelector(
-      `.page[data-page="${pageNumber}"]`
+    const target = document.querySelector(
+      '.page[data-page="' + pageNumber + '"]'
     );
 
-    if (targetPage) {
-      targetPage.classList.add("active");
+    if (target) {
+      target.classList.add("active");
       currentPage = pageNumber;
 
       window.scrollTo({
@@ -34,124 +37,170 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  nextButtons.forEach(button => {
-    button.addEventListener("click", () => {
-      const nextPage = Number(button.dataset.next);
+  nextButtons.forEach(function (button) {
 
-      if (nextPage) {
+    button.addEventListener("click", function () {
+
+      const nextPage = parseInt(
+        button.getAttribute("data-next"),
+        10
+      );
+
+      if (!isNaN(nextPage)) {
         showPage(nextPage);
       }
+
     });
+
   });
 
 
-  // -------------------------------
-  // YES / NO QUESTION
-  // -------------------------------
+  /* =====================================
+     YES / NO QUESTION
+     ===================================== */
 
-  const yesButton = document.querySelector("#yesBtn");
-  const noButton = document.querySelector("#noBtn");
-  const answerMessage = document.querySelector("#answerMessage");
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const answerMessage =
+    document.getElementById("answerMessage");
 
-  if (yesButton) {
-    yesButton.addEventListener("click", () => {
+  if (yesBtn) {
+
+    yesBtn.addEventListener("click", function () {
 
       if (answerMessage) {
+
         answerMessage.innerHTML =
-          "I knew it. 🥹❤️<br>Then let's make a lifetime of memories together. ✨";
+          "I knew it. 🥹❤️<br>" +
+          "Then let's make a lifetime of memories together. ✨";
+
         answerMessage.style.display = "block";
       }
 
-      createHearts(25);
+      yesBtn.innerHTML = "YES ❤️";
+      yesBtn.disabled = true;
 
-      yesButton.innerHTML = "YES ❤️";
-      yesButton.disabled = true;
-
-      if (noButton) {
-        noButton.style.display = "none";
-      }
-    });
-  }
-
-
-  if (noButton) {
-
-    noButton.addEventListener("click", () => {
-
-      if (answerMessage) {
-        answerMessage.innerHTML =
-          "Nice try 🙈😂<br>You don't get to escape that easily. ❤️";
-        answerMessage.style.display = "block";
+      if (noBtn) {
+        noBtn.style.display = "none";
       }
 
-      // Make the NO button move around
-      const maxX = Math.max(20, window.innerWidth - 180);
-      const maxY = Math.max(20, window.innerHeight - 120);
-
-      noButton.style.position = "fixed";
-      noButton.style.left =
-        Math.floor(Math.random() * maxX) + "px";
-      noButton.style.top =
-        Math.floor(Math.random() * maxY) + "px";
+      heartBurst(30);
     });
 
   }
 
 
-  // -------------------------------
-  // DISHRA PUZZLE
-  // -------------------------------
+  if (noBtn) {
 
-  const puzzleContainer =
-    document.querySelector("#puzzle");
+    noBtn.addEventListener("click", function () {
 
-  const checkButton =
-    document.querySelector("#checkPuzzle");
+      if (answerMessage) {
 
-  const resetButton =
-    document.querySelector("#resetPuzzle");
+        answerMessage.innerHTML =
+          "Nice try 🙈😂<br>" +
+          "You don't get to escape that easily. ❤️";
+
+        answerMessage.style.display = "block";
+      }
+
+      noBtn.style.position = "fixed";
+
+      const maxX =
+        Math.max(10, window.innerWidth - 150);
+
+      const maxY =
+        Math.max(80, window.innerHeight - 100);
+
+      const randomX =
+        Math.floor(Math.random() * maxX);
+
+      const randomY =
+        Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+    });
+
+  }
+
+
+  /* =====================================
+     PUZZLE
+     ===================================== */
+
+  const puzzle = document.getElementById("puzzle");
+  const puzzleDisplay =
+    document.getElementById("puzzleDisplay");
+
+  const checkPuzzle =
+    document.getElementById("checkPuzzle");
+
+  const resetPuzzle =
+    document.getElementById("resetPuzzle");
 
   const puzzleResult =
-    document.querySelector("#puzzleResult");
+    document.getElementById("puzzleResult");
 
+  const correctWord = "DISHRA";
+
+  const puzzleLetters =
+    ["D", "I", "S", "H", "R", "A"];
 
   let selectedLetters = [];
 
-  // Correct word
-  const correctWord = "DISHRA";
 
-  // Letters
-  const letters = ["D", "I", "S", "H", "R", "A"];
+  function updatePuzzleDisplay() {
+
+    if (!puzzleDisplay) return;
+
+    if (selectedLetters.length === 0) {
+
+      puzzleDisplay.textContent =
+        "_ _ _ _ _ _";
+
+    } else {
+
+      puzzleDisplay.textContent =
+        selectedLetters.join(" ");
+
+    }
+  }
 
 
   function createPuzzle() {
 
-    if (!puzzleContainer) return;
+    if (!puzzle) return;
 
-    puzzleContainer.innerHTML = "";
+    puzzle.innerHTML = "";
 
     selectedLetters = [];
 
     if (puzzleResult) {
-      puzzleResult.innerHTML = "";
       puzzleResult.style.display = "none";
+      puzzleResult.innerHTML = "";
     }
 
-    // Shuffle letters
-    const shuffled = [...letters].sort(
-      () => Math.random() - 0.5
-    );
+    const shuffled =
+      [...puzzleLetters].sort(
+        function () {
+          return Math.random() - 0.5;
+        }
+      );
 
-    shuffled.forEach(letter => {
+    shuffled.forEach(function (letter) {
 
-      const button = document.createElement("button");
+      const button =
+        document.createElement("button");
 
+      button.type = "button";
       button.className = "puzzle-letter";
       button.textContent = letter;
 
-      button.addEventListener("click", () => {
+      button.addEventListener("click", function () {
 
-        if (button.classList.contains("selected")) {
+        if (
+          button.classList.contains("selected")
+        ) {
           return;
         }
 
@@ -159,200 +208,303 @@ document.addEventListener("DOMContentLoaded", () => {
 
         selectedLetters.push(letter);
 
-        button.style.opacity = "0.5";
-        button.style.transform = "scale(0.9)";
-
         updatePuzzleDisplay();
       });
 
-      puzzleContainer.appendChild(button);
+      puzzle.appendChild(button);
+
     });
 
     updatePuzzleDisplay();
   }
 
 
-  function updatePuzzleDisplay() {
+  if (checkPuzzle) {
 
-    const display =
-      document.querySelector("#puzzleDisplay");
+    checkPuzzle.addEventListener(
+      "click",
+      function () {
 
-    if (!display) return;
+        const answer =
+          selectedLetters.join("");
 
-    if (selectedLetters.length === 0) {
-      display.textContent = "_ _ _ _ _ _";
-    } else {
+        if (answer === correctWord) {
 
-      display.textContent =
-        selectedLetters.join(" ");
-    }
-  }
+          if (puzzleResult) {
 
+            puzzleResult.innerHTML =
+              "🎉 Perfect! You spelled DISHRA! ❤️<br>" +
+              "Our favourite little word. 🥹";
 
-  // CHECK BUTTON
+            puzzleResult.style.display = "block";
+          }
 
-  if (checkButton) {
+          heartBurst(25);
 
-    checkButton.addEventListener("click", () => {
+        } else {
 
-      const answer = selectedLetters.join("");
+          if (puzzleResult) {
 
-      if (answer === correctWord) {
+            puzzleResult.innerHTML =
+              "Almost... 👀❤️<br>" +
+              "Try arranging the letters again.";
 
-        if (puzzleResult) {
-          puzzleResult.innerHTML =
-            "🎉 Perfect! You spelled DISHRA! ❤️<br>Our favourite little word. 🥹";
-          puzzleResult.style.display = "block";
-        }
+            puzzleResult.style.display = "block";
+          }
 
-        createHearts(20);
-
-      } else {
-
-        if (puzzleResult) {
-          puzzleResult.innerHTML =
-            "Almost... 👀❤️<br>Try arranging the letters again.";
-          puzzleResult.style.display = "block";
         }
 
       }
-
-    });
-
-  }
-
-
-  // RESET BUTTON
-
-  if (resetButton) {
-
-    resetButton.addEventListener("click", () => {
-      createPuzzle();
-    });
+    );
 
   }
 
 
-  // Start puzzle
+  if (resetPuzzle) {
+
+    resetPuzzle.addEventListener(
+      "click",
+      function () {
+        createPuzzle();
+      }
+    );
+
+  }
+
   createPuzzle();
 
 
-  // -------------------------------
-  // HEART ANIMATION
-  // -------------------------------
+  /* =====================================
+     CONTINUOUS FLOATING HEARTS
+     ===================================== */
 
-  function createHearts(amount = 10) {
+  const heartsContainer =
+    document.getElementById("hearts");
+
+  function createFloatingHeart() {
+
+    if (!heartsContainer) return;
+
+    const heart =
+      document.createElement("span");
+
+    heart.className = "floating-heart";
+
+    const symbols = ["♡", "♥", "♡", "♥"];
+
+    heart.textContent =
+      symbols[
+        Math.floor(
+          Math.random() * symbols.length
+        )
+      ];
+
+    heart.style.left =
+      Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+      (16 + Math.random() * 25) + "px";
+
+    heart.style.animationDuration =
+      (5 + Math.random() * 4) + "s";
+
+    heart.style.color =
+      Math.random() > 0.5
+        ? "#ff9dca"
+        : "#ffffff";
+
+    heartsContainer.appendChild(heart);
+
+    setTimeout(function () {
+
+      if (heart.parentNode) {
+        heart.remove();
+      }
+
+    }, 10000);
+  }
+
+
+  // Start floating hearts
+  for (let i = 0; i < 12; i++) {
+
+    setTimeout(
+      createFloatingHeart,
+      i * 250
+    );
+
+  }
+
+  // Continue forever
+  setInterval(
+    createFloatingHeart,
+    650
+  );
+
+
+  /* =====================================
+     HEART BURST
+     ===================================== */
+
+  function heartBurst(amount) {
 
     for (let i = 0; i < amount; i++) {
 
-      const heart = document.createElement("div");
+      const heart =
+        document.createElement("span");
 
-      heart.innerHTML = "❤️";
+      heart.className = "burst-heart";
+      heart.textContent = "❤️";
 
-      heart.style.position = "fixed";
       heart.style.left =
-        Math.random() * 100 + "vw";
+        "50%";
 
-      heart.style.bottom = "-30px";
+      heart.style.top =
+        "50%";
 
-      heart.style.fontSize =
-        (15 + Math.random() * 25) + "px";
+      heart.style.setProperty(
+        "--x",
+        Math.random()
+      );
 
-      heart.style.pointerEvents = "none";
-
-      heart.style.zIndex = "9999";
-
-      heart.style.transition =
-        "transform 3s ease-out, opacity 3s ease-out";
+      heart.style.setProperty(
+        "--y",
+        Math.random()
+      );
 
       document.body.appendChild(heart);
 
-      setTimeout(() => {
+      setTimeout(function () {
 
-        heart.style.transform =
-          `translateY(-${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`;
+        if (heart.parentNode) {
+          heart.remove();
+        }
 
-        heart.style.opacity = "0";
-
-      }, 50);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 3200);
+      }, 1400);
 
     }
 
   }
 
 
-  // -------------------------------
-  // CLICK HEART EFFECT
-  // -------------------------------
+  /* =====================================
+     CLICK HEART EFFECT
+     ===================================== */
 
-  document.addEventListener("click", event => {
+  document.addEventListener(
+    "click",
+    function (event) {
 
-    const heart = document.createElement("span");
+      // Don't create extra heart when
+      // clicking puzzle letters.
+      if (
+        event.target.classList.contains(
+          "puzzle-letter"
+        )
+      ) {
+        return;
+      }
 
-    heart.textContent = "❤️";
+      const heart =
+        document.createElement("span");
 
-    heart.style.position = "fixed";
-    heart.style.left = event.clientX + "px";
-    heart.style.top = event.clientY + "px";
+      heart.textContent = "♡";
 
-    heart.style.pointerEvents = "none";
-    heart.style.fontSize = "18px";
-    heart.style.zIndex = "9999";
+      heart.style.position = "fixed";
+      heart.style.left =
+        event.clientX + "px";
+      heart.style.top =
+        event.clientY + "px";
 
-    heart.style.transition =
-      "transform 1s ease, opacity 1s ease";
+      heart.style.color = "#ff91c7";
+      heart.style.fontSize = "20px";
+      heart.style.pointerEvents = "none";
+      heart.style.zIndex = "9999";
 
-    document.body.appendChild(heart);
+      heart.style.transition =
+        "transform 1s ease, opacity 1s ease";
 
-    setTimeout(() => {
-      heart.style.transform =
-        "translateY(-60px) scale(1.5)";
-      heart.style.opacity = "0";
-    }, 20);
+      document.body.appendChild(heart);
 
-    setTimeout(() => {
-      heart.remove();
-    }, 1100);
+      setTimeout(function () {
 
-  });
+        heart.style.transform =
+          "translateY(-60px) scale(1.5)";
+
+        heart.style.opacity = "0";
+
+      }, 20);
+
+      setTimeout(function () {
+
+        if (heart.parentNode) {
+          heart.remove();
+        }
+
+      }, 1100);
+
+    }
+  );
 
 
-  // -------------------------------
-  // KEYBOARD SUPPORT
-  // -------------------------------
+  /* =====================================
+     KEYBOARD NAVIGATION
+     ===================================== */
 
-  document.addEventListener("keydown", event => {
+  document.addEventListener(
+    "keydown",
+    function (event) {
 
-    if (event.key === "ArrowRight") {
+      if (event.key === "ArrowRight") {
 
-      const nextPage =
-        document.querySelector(
-          `[data-page="${currentPage + 1}"]`
-        );
+        const next =
+          document.querySelector(
+            '.page[data-page="' +
+            (currentPage + 1) +
+            '"]'
+          );
 
-      if (nextPage) {
-        showPage(currentPage + 1);
+        if (next) {
+          showPage(currentPage + 1);
+        }
+
+      }
+
+
+      if (event.key === "ArrowLeft") {
+
+        const previous =
+          document.querySelector(
+            '.page[data-page="' +
+            (currentPage - 1) +
+            '"]'
+          );
+
+        if (previous) {
+          showPage(currentPage - 1);
+        }
+
       }
 
     }
+  );
 
-    if (event.key === "ArrowLeft") {
 
-      const previousPage =
-        document.querySelector(
-          `[data-page="${currentPage - 1}"]`
-        );
+  /* =====================================
+     INITIAL PAGE
+     ===================================== */
 
-      if (previousPage) {
-        showPage(currentPage - 1);
-      }
+  if (pages.length) {
 
+    const alreadyActive =
+      document.querySelector(
+        ".page.active"
+      );
+
+    if (!alreadyActive) {
+      showPage(1);
     }
 
-  });
+  }
 
 });
